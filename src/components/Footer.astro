@@ -1,0 +1,80 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>BlogSpace</h3>
+      <p>Share your stories with the world.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Links</h4>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/privacy">Privacy Policy</a>
+    </div>
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <a href="#">Twitter</a>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; {currentYear} BlogSpace. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #f8f9fa;
+    padding: 3rem 1rem 1rem;
+    margin-top: 4rem;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-section h3,
+  .footer-section h4 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .footer-section a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section a:hover {
+    color: #333;
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+</style>

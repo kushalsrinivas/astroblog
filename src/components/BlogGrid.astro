@@ -1,0 +1,104 @@
+---
+const posts = [
+  {
+    title: "Getting Started with Web Development",
+    excerpt: "Learn the basics of HTML, CSS, and JavaScript to kickstart your web development journey.",
+    author: "Jane Doe",
+    date: "2024-03-20",
+    image: "https://picsum.photos/seed/post1/400/250"
+  },
+  {
+    title: "The Art of Photography",
+    excerpt: "Discover essential tips and techniques to improve your photography skills.",
+    author: "John Smith",
+    date: "2024-03-19",
+    image: "https://picsum.photos/seed/post2/400/250"
+  },
+  {
+    title: "Healthy Living Guide",
+    excerpt: "Simple steps to maintain a healthy lifestyle in today's busy world.",
+    author: "Sarah Johnson",
+    date: "2024-03-18",
+    image: "https://picsum.photos/seed/post3/400/250"
+  }
+];
+---
+
+<div class="blog-grid">
+  {posts.map(post => (
+    <article class="blog-card">
+      <div class="image-container">
+        <img src={post.image} alt={post.title} />
+      </div>
+      <div class="content">
+        <h2>{post.title}</h2>
+        <p>{post.excerpt}</p>
+        <div class="meta">
+          <span class="author">{post.author}</span>
+          <span class="date">{new Date(post.date).toLocaleDateString()}</span>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-sm);
+  }
+
+  .blog-card {
+    background: var(--color-secondary);
+    border: var(--border-brutal);
+    box-shadow: var(--shadow-brutal);
+    transition: transform 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--color-text);
+  }
+
+  .image-container {
+    border-bottom: var(--border-brutal);
+  }
+
+  .blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .content {
+    padding: var(--space-md);
+  }
+
+  .content h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+  }
+
+  .content p {
+    margin-bottom: var(--space-md);
+    font-size: 1.1rem;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--color-text);
+    padding-top: var(--space-sm);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

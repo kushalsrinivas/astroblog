@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Profile from '../components/Profile';
+import { supabase } from '../lib/supabase';
+
+const session = await supabase.auth.getSession();
+const userId = session?.data?.session?.user?.id;
+
+if (!userId) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Profile - BlogSpace">
+  <Navbar />
+  <div class="profile-page">
+    <h1>Profile</h1>
+    <Profile client:load userId={userId} />
+  </div>
+</Layout>
+
+<style>
+  .profile-page {
+    max-width: 800px;
+    margin: 120px auto 0;
+    padding: var(--space-md);
+  }
+
+  h1 {
+    margin-bottom: var(--space-lg);
+  }
+</style>

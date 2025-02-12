@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Auth from '../components/Auth';
+---
+
+<Layout title="Login - BlogSpace">
+  <Navbar />
+  <div class="login-page">
+    <h1>Login</h1>
+    <Auth client:load />
+  </div>
+</Layout>
+
+<style>
+  .login-page {
+    max-width: 500px;
+    margin: 120px auto 0;
+    padding: var(--space-md);
+  }
+
+  h1 {
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+</style>

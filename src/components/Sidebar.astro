@@ -1,0 +1,98 @@
+---
+---
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <h3>Categories</h3>
+    <ul class="category-list">
+      <li><a href="#" class="category-item">Technology</a></li>
+      <li><a href="#" class="category-item">Travel</a></li>
+      <li><a href="#" class="category-item">Food</a></li>
+      <li><a href="#" class="category-item">Lifestyle</a></li>
+    </ul>
+  </div>
+  
+  <div class="sidebar-section">
+    <div class="ad-space">
+      <p>Advertisement</p>
+    </div>
+  </div>
+  
+  <div class="sidebar-section">
+    <h3>Popular Tags</h3>
+    <div class="tag-cloud">
+      <a href="#" class="tag">#webdev</a>
+      <a href="#" class="tag">#design</a>
+      <a href="#" class="tag">#photography</a>
+      <a href="#" class="tag">#tips</a>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .sidebar-section {
+    background: var(--color-secondary);
+    border: var(--border-brutal);
+    box-shadow: var(--shadow-brutal);
+    padding: var(--space-md);
+  }
+
+  .sidebar-section h3 {
+    margin-bottom: var(--space-md);
+    font-size: 1.25rem;
+  }
+
+  .category-list {
+    list-style: none;
+  }
+
+  .category-item {
+    display: block;
+    padding: var(--space-xs) 0;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+
+  .category-item:hover {
+    transform: translateX(var(--space-xs));
+  }
+
+  .ad-space {
+    background: var(--color-muted);
+    padding: var(--space-xl);
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .tag {
+    background: var(--color-background);
+    padding: var(--space-xs) var(--space-sm);
+    border: 2px solid var(--color-text);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background: var(--color-text);
+    color: var(--color-secondary);
+  }
+
+  @media (max-width: 1024px) {
+    .sidebar {
+      width: 100%;
+    }
+  }
+</style>

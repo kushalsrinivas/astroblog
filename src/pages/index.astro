@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+import BlogGrid from '../components/BlogGrid.astro';
+---
+
+<Layout title="BlogSpace - Share Your Stories">
+  <Navbar />
+  
+  <div class="main-container">
+    <main class="content">
+      <header class="page-header">
+        <h1>Latest Posts</h1>
+        <div class="header-actions">
+          <button class="filter-button">Filter</button>
+          <button class="sort-button">Sort</button>
+        </div>
+      </header>
+      <BlogGrid />
+    </main>
+    <Sidebar />
+  </div>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .main-container {
+    max-width: 1200px;
+    margin: 120px auto 0;
+    padding: var(--space-md);
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .content {
+    flex: 1;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  @media (max-width: 1024px) {
+    .main-container {
+      flex-direction: column;
+    }
+
+    .page-header {
+      flex-direction: column;
+      gap: var(--space-md);
+      align-items: flex-start;
+    }
+  }
+</style>

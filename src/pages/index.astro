@@ -1,69 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
 import BlogGrid from '../components/BlogGrid.astro';
-import AdSpace from '../components/AdSpace';
-import SubscriptionButton from '../components/SubscriptionButton';
-
-const { searchQuery, category, tag } = Astro.props;
 ---
 
 <Layout title="BlogSpace - Share Your Stories">
   <Navbar />
   
-  <main class="container">
-    <div class="content-wrapper">
-      <div class="main-content">
-        <div class="header">
-          <h1>Latest Posts</h1>
-          <SubscriptionButton client:load />
+  <div class="main-container">
+    <main class="content">
+      <header class="page-header">
+        <h1>Latest Posts</h1>
+        <div class="header-actions">
+          <button class="filter-button">Filter</button>
+          <button class="sort-button">Sort</button>
         </div>
-        
-        <BlogGrid 
-          searchQuery={searchQuery}
-          category={category}
-          tag={tag}
-        />
-        
-        <AdSpace client:load placement="feed" />
-      </div>
-      
-      <aside class="sidebar-container">
-        <Sidebar />
-        <AdSpace client:load placement="sidebar" />
-      </aside>
-    </div>
-  </main>
+      </header>
+      <BlogGrid />
+    </main>
+    <Sidebar />
+  </div>
+  
+  <Footer />
 </Layout>
 
 <style>
-  .container {
+  .main-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 120px auto 0;
     padding: var(--space-md);
+    display: flex;
+    gap: var(--space-lg);
   }
 
-  .content-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: var(--space-xl);
+  .content {
+    flex: 1;
   }
 
-  .main-content {
-    min-width: 0;
-  }
-
-  .header {
+  .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-lg);
   }
 
+  h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
   @media (max-width: 1024px) {
-    .content-wrapper {
-      grid-template-columns: 1fr;
+    .main-container {
+      flex-direction: column;
+    }
+
+    .page-header {
+      flex-direction: column;
+      gap: var(--space-md);
+      align-items: flex-start;
     }
   }
 </style>

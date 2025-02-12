@@ -1,99 +1,104 @@
 ---
-import { supabase } from '../lib/supabase';
-import { formatDate } from '../utils/date';
-import LikeButton from './LikeButton';
-import ViewCounter from './ViewCounter';
-
-const { category, tag, searchQuery } = Astro.props;
-
-// Get user session
-const { data: { session } } = await supabase.auth.getSession();
-const userId = session?.user?.id;
-
-// Fetch blogs with filters and engagement metrics
-let query = supabase
-  .from('blogs')
-  .select(`
-    *,
-    author:users(name, avatar_url),
-    likes:likes(count),
-    bookmarks:bookmarks(count)
-  `)
-  .eq('published', true)
-  .order('created_at', { ascending: false });
-
-if (category) {
-  query = query.eq('category', category);
-}
-
-if (tag) {
-  query = query.contains('tags', [tag]);
-}
-
-if (searchQuery) {
-  query = query.textSearch('title', searchQuery);
-}
-
-const { data: posts, error } = await query;
-
-if (error) {
-  console.error('Error fetching blogs:', error);
-}
+const posts = [
+  {
+    title: "Getting Started with Web Development",
+    excerpt: "Learn the basics of HTML, CSS, and JavaScript to kickstart your web development journey.",
+    author: "Jane Doe",
+    date: "2024-03-20",
+    image: "https://picsum.photos/seed/post1/400/250"
+  },
+  {
+    title: "The Art of Photography",
+    excerpt: "Discover essential tips and techniques to improve your photography skills.",
+    author: "John Smith",
+    date: "2024-03-19",
+    image: "https://picsum.photos/seed/post2/400/250"
+  },
+  {
+    title: "Healthy Living Guide",
+    excerpt: "Simple steps to maintain a healthy lifestyle in today's busy world.",
+    author: "Sarah Johnson",
+    date: "2024-03-18",
+    image: "https://picsum.photos/seed/post3/400/250"
+  }
+];
 ---
 
 <div class="blog-grid">
-  {posts && posts.map(post => (
+  {posts.map(post => (
     <article class="blog-card">
-      <a href={`/blog/${post.slug}`} class="card-link">
-        <div class="image-container">
-          <img 
-            src={post.cover_image || `https://picsum.photos/seed/${post.id}/400/250`}
-            alt={post.title}
-          />
-          <div class="category-tag">{post.category}</div>
+      <div class="image-container">
+        <img src={post.image} alt={post.title} />
+      </div>
+      <div class="content">
+        <h2>{post.title}</h2>
+        <p>{post.excerpt}</p>
+        <div class="meta">
+          <span class="author">{post.author}</span>
+          <span class="date">{new Date(post.date).toLocaleDateString()}</span>
         </div>
-        <div class="content">
-          <h2>{post.title}</h2>
-          <p>{post.excerpt || post.content.substring(0, 150)}...</p>
-          <div class="meta">
-            <div class="author">
-              <img 
-                src={post.author?.avatar_url || `https://ui-avatars.com/api/?name=${post.author?.name}`}
-                alt={post.author?.name}
-                class="author-avatar"
-              />
-              <span>{post.author?.name}</span>
-            </div>
-            <span class="date">{formatDate(post.created_at)}</span>
-          </div>
-          <div class="tags">
-            {post.tags.map((tag: string) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-          <div class="engagement">
-            <LikeButton 
-              client:load 
-              blogId={post.id} 
-              userId={userId} 
-              initialLikes={post.likes[0]?.count || 0}
-            />
-            <ViewCounter count={post.views || 0} />
-          </div>
-        </div>
-      </a>
+      </div>
     </article>
   ))}
 </div>
 
 <style>
-  /* Previous styles remain the same */
-
-  .engagement {
-    display: flex;
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-md);
-    margin-top: var(--space-md);
-    padding-top: var(--space-md);
+    padding: var(--space-sm);
+  }
+
+  .blog-card {
+    background: var(--color-secondary);
+    border: var(--border-brutal);
+    box-shadow: var(--shadow-brutal);
+    transition: transform 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--color-text);
+  }
+
+  .image-container {
+    border-bottom: var(--border-brutal);
+  }
+
+  .blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .content {
+    padding: var(--space-md);
+  }
+
+  .content h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+  }
+
+  .content p {
+    margin-bottom: var(--space-md);
+    font-size: 1.1rem;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
     border-top: 2px solid var(--color-text);
+    padding-top: var(--space-sm);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

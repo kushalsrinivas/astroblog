@@ -1,0 +1,79 @@
+.editor-container {
+  border: var(--border-brutal);
+  background: white;
+  margin-bottom: var(--space-md);
+}
+
+.editor-menu {
+  padding: var(--space-sm);
+  border-bottom: var(--border-brutal);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.editor-menu button {
+  font-size: 0.875rem;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.editor-menu button.is-active {
+  background: var(--color-accent);
+  color: white;
+}
+
+.ProseMirror {
+  padding: var(--space-md);
+  min-height: 300px;
+  outline: none;
+}
+
+.ProseMirror p {
+  margin-bottom: var(--space-sm);
+}
+
+.ProseMirror h1 {
+  font-size: 2em;
+  margin: var(--space-md) 0;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  margin: var(--space-md) 0;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.ProseMirror code {
+  background: var(--color-secondary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+.ProseMirror pre {
+  background: var(--color-secondary);
+  padding: var(--space-sm);
+  border: var(--border-brutal);
+  margin-bottom: var(--space-sm);
+}
+
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.button-group {
+  display: flex;
+  gap: var(--space-sm);
+}

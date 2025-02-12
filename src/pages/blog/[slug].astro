@@ -1,0 +1,60 @@
+---
+// ... (previous imports)
+import AdSpace from '../../components/AdSpace';
+import SubscriptionButton from '../../components/SubscriptionButton';
+
+// ... (previous code)
+
+---
+
+<Layout title={`${post.title} - BlogSpace`}>
+  <Navbar />
+  
+  <article class="blog-post">
+    <header class="post-header">
+      <div class="subscription-banner">
+        <p>Enjoy an ad-free experience</p>
+        <SubscriptionButton client:load />
+      </div>
+      
+      <!-- ... (previous header content) ... -->
+    </header>
+
+    <div class="author-section">
+      <!-- ... (previous author section) ... -->
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content" set:html={post.content} />
+      <AdSpace client:load placement="content" />
+    </div>
+
+    <!-- ... (previous suggested posts section) ... -->
+  </article>
+</Layout>
+
+<style>
+  /* ... (previous styles) ... */
+
+  .subscription-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
+    background: var(--color-secondary);
+    border: var(--border-brutal);
+    margin-bottom: var(--space-lg);
+  }
+
+  .content-wrapper {
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .subscription-banner {
+      flex-direction: column;
+      gap: var(--space-md);
+      text-align: center;
+    }
+  }
+</style>

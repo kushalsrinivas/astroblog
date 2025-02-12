@@ -1,4 +1,5 @@
 ---
+// Component Script (between the frontmatter ---)
 import { supabase } from '../lib/supabase';
 import { formatDate } from '../utils/date';
 import LikeButton from './LikeButton';
@@ -41,6 +42,7 @@ if (error) {
 }
 ---
 
+<!-- Component Template -->
 <div class="blog-grid">
   {posts && posts.map(post => (
     <article class="blog-card">
@@ -88,7 +90,6 @@ if (error) {
 
 <style>
   /* Previous styles remain the same */
-
   .engagement {
     display: flex;
     gap: var(--space-md);

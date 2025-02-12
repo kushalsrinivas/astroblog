@@ -1,0 +1,32 @@
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: var(--border-brutal);
+  background: var(--color-background);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.like-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal);
+}
+
+.like-button.liked {
+  background: var(--color-accent);
+  color: white;
+}
+
+.like-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.like-count {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+} 

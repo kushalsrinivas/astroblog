@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
+import "../styles/BookmarkButton.css";
 
 interface BookmarkButtonProps {
   blogId: string;
   userId?: string;
 }
 
-export default function BookmarkButton({ blogId, userId }: BookmarkButtonProps) {
+export default function BookmarkButton({
+  blogId,
+  userId,
+}: BookmarkButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -16,28 +20,28 @@ export default function BookmarkButton({ blogId, userId }: BookmarkButtonProps) 
     } else {
       setLoading(false);
     }
-  }, [userId, blogId]);
+  }, [userId]);
 
   async function checkBookmarkStatus() {
     try {
       const { data } = await supabase
-        .from('bookmarks')
-        .select('*')
-        .eq('blog_id', blogId)
-        .eq('user_id', userId)
+        .from("bookmarks")
+        .select("*")
+        .eq("blog_id", blogId)
+        .eq("user_id", userId)
         .single();
 
       setIsBookmarked(!!data);
       setLoading(false);
     } catch (error) {
-      console.error('Error checking bookmark status:', error);
+      console.error("Error checking bookmark status:", error);
       setLoading(false);
     }
   }
 
   async function toggleBookmark() {
     if (!userId) {
-      window.location.href = '/login';
+      window.location.href = "/login";
       return;
     }
 
@@ -46,69 +50,44 @@ export default function BookmarkButton({ blogId, userId }: BookmarkButtonProps) 
       if (isBookmarked) {
         // Remove bookmark
         await supabase
-          .from('bookmarks')
+          .from("bookmarks")
           .delete()
-          .eq('blog_id', blogId)
-          .eq('user_id', userId);
+          .eq("blog_id", blogId)
+          .eq("user_id", userId);
       } else {
         // Add bookmark
         await supabase
-          .from('bookmarks')
+          .from("bookmarks")
           .insert([{ blog_id: blogId, user_id: userId }]);
       }
       setIsBookmarked(!isBookmarked);
     } catch (error) {
-      console.error('Error toggling bookmark:', error);
+      console.error("Error toggling bookmark:", error);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <button 
+    <button
+      type="button"
       onClick={toggleBookmark}
       disabled={loading}
-      className={`bookmark-button ${isBookmarked ? 'bookmarked' : ''}`}
-      aria-label={isBookmarked ? 'Remove bookmark' : 'Add bookmark'}
+      className={`bookmark-button ${isBookmarked ? "bookmarked" : ""}`}
+      aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
     >
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="24" 
-        height="24" 
-        viewBox="0 0 24 24" 
-        fill={isBookmarked ? 'currentColor' : 'none'}
-        stroke="currentColor" 
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill={isBookmarked ? "currentColor" : "none"}
+        stroke="currentColor"
         strokeWidth="2"
+        title={isBookmarked ? "Bookmarked" : "Not bookmarked"}
       >
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
       </svg>
     </button>
   );
 }
-
-<style>
-  .bookmark-button {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-sm);
-    border: var(--border-brutal);
-    background: var(--color-background);
-    color: var(--color-text);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .bookmark-button:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal);
-  }
-
-  .bookmark-button.bookmarked {
-    background: var(--color-secondary);
-  }
-
-  .bookmark-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-</style>

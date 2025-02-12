@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
+import "../styles/FilterBar.css";
 
 interface FilterBarProps {
   onFilterChange: (filters: { category?: string; tag?: string }) => void;
@@ -8,8 +9,8 @@ interface FilterBarProps {
 export default function FilterBar({ onFilterChange }: FilterBarProps) {
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
 
   useEffect(() => {
     fetchFilters();
@@ -18,23 +19,25 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
   async function fetchFilters() {
     // Fetch unique categories
     const { data: categoryData } = await supabase
-      .from('blogs')
-      .select('category')
-      .eq('published', true);
-    
+      .from("blogs")
+      .select("category")
+      .eq("published", true);
+
     // Fetch all tags and flatten them
     const { data: tagData } = await supabase
-      .from('blogs')
-      .select('tags')
-      .eq('published', true);
+      .from("blogs")
+      .select("tags")
+      .eq("published", true);
 
     if (categoryData) {
-      const uniqueCategories = [...new Set(categoryData.map(item => item.category))];
+      const uniqueCategories = [
+        ...new Set(categoryData.map((item) => item.category)),
+      ];
       setCategories(uniqueCategories);
     }
 
     if (tagData) {
-      const allTags = tagData.flatMap(item => item.tags);
+      const allTags = tagData.flatMap((item) => item.tags);
       const uniqueTags = [...new Set(allTags)];
       setTags(uniqueTags);
     }
@@ -43,7 +46,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
   const handleFilterChange = () => {
     onFilterChange({
       category: selectedCategory,
-      tag: selectedTag
+      tag: selectedTag,
     });
   };
 
@@ -58,8 +61,10 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         className="filter-select"
       >
         <option value="">All Categories</option>
-        {categories.map(category => (
-          <option key={category} value={category}>{category}</option>
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
         ))}
       </select>
 
@@ -72,38 +77,12 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         className="filter-select"
       >
         <option value="">All Tags</option>
-        {tags.map(tag => (
-          <option key={tag} value={tag}>{tag}</option>
+        {tags.map((tag) => (
+          <option key={tag} value={tag}>
+            {tag}
+          </option>
         ))}
       </select>
     </div>
   );
 }
-
-<style>
-  .filter-bar {
-    display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-lg);
-  }
-
-  .filter-select {
-    padding: var(--space-sm);
-    border: var(--border-brutal);
-    background: white;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .filter-select:focus {
-    outline: none;
-    box-shadow: var(--shadow-brutal);
-  }
-
-  @media (max-width: 768px) {
-    .filter-bar {
-      flex-direction: column;
-    }
-  }
-</style>

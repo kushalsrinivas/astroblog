@@ -33,6 +33,7 @@ export default function DeleteBlog({ blogId, onSuccess }: DeleteBlogProps) {
 
   return (
     <button
+      type="button"
       onClick={handleDelete}
       disabled={loading}
       className="delete-button"

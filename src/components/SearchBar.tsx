@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
+import "../styles/SearchBar.css";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
 }
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,21 +28,3 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     </form>
   );
 }
-
-<style>
-  .search-bar {
-    display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-lg);
-  }
-
-  .search-input {
-    flex: 1;
-  }
-
-  @media (max-width: 768px) {
-    .search-bar {
-      flex-direction: column;
-    }
-  }
-</style>

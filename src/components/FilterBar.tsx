@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import './FilterBar.css';
 
 interface FilterBarProps {
   onFilterChange: (filters: { category?: string; tag?: string }) => void;
@@ -79,31 +80,3 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
     </div>
   );
 }
-
-<style>
-  .filter-bar {
-    display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-lg);
-  }
-
-  .filter-select {
-    padding: var(--space-sm);
-    border: var(--border-brutal);
-    background: white;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .filter-select:focus {
-    outline: none;
-    box-shadow: var(--shadow-brutal);
-  }
-
-  @media (max-width: 768px) {
-    .filter-bar {
-      flex-direction: column;
-    }
-  }
-</style>

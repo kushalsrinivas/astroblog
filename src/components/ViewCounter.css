@@ -1,0 +1,8 @@
+.view-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  color: var(--color-text);
+  opacity: 0.8;
+} 

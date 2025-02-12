@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import './BookmarkButton.css';
 
 interface BookmarkButtonProps {
   blogId: string;
@@ -68,6 +69,7 @@ export default function BookmarkButton({ blogId, userId }: BookmarkButtonProps) 
     <button 
       onClick={toggleBookmark}
       disabled={loading}
+      type="button"
       className={`bookmark-button ${isBookmarked ? 'bookmarked' : ''}`}
       aria-label={isBookmarked ? 'Remove bookmark' : 'Add bookmark'}
     >
@@ -79,36 +81,10 @@ export default function BookmarkButton({ blogId, userId }: BookmarkButtonProps) 
         fill={isBookmarked ? 'currentColor' : 'none'}
         stroke="currentColor" 
         strokeWidth="2"
+        title={isBookmarked ? 'Bookmarked' : 'Not bookmarked'}
       >
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
       </svg>
     </button>
   );
 }
-
-<style>
-  .bookmark-button {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-sm);
-    border: var(--border-brutal);
-    background: var(--color-background);
-    color: var(--color-text);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .bookmark-button:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal);
-  }
-
-  .bookmark-button.bookmarked {
-    background: var(--color-secondary);
-  }
-
-  .bookmark-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-</style>
